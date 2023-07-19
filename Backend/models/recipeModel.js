@@ -5,7 +5,7 @@ const myschema = new Schema({
     type: String,
     image: String,
     category : String,
-    description: String,
+    discription: String,
     ingredients: {type: Array, default: []},
     user: {type : Types.ObjectId, ref: 'user'}
 })

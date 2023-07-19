@@ -72,7 +72,7 @@ const AddRecipe = () => {
 
   return (
     <div>
-      <body className="d-flex justify-content-center align-items-center vh-100">
+      <body className="d-flex justify-content-center align-items-center">
         <div className="card w-25">
           <div className="card-body p-5">
             <form onSubmit={recipeFom.handleSubmit}>
