@@ -24,17 +24,17 @@ const Login = () => {
   return (
     <div>
         <body className='d-flex justify-content-center align-items-center vh-100 w-100'>
-          <form onSubmit={loginForm.handleChange}>
+          <form onSubmit={loginForm.handleSubmit}>
 
           
           <div className="login">
             <h3>Log In</h3>
             <span style={{color:'red',fontSize:14,marginLeft:10}} >{loginForm.touched.email&&loginForm.errors.email}</span>
             <label htmlFor="email"></label>
-            <input type="email" className='myinput'placeholder='email'name='email' onChange={loginForm.handleChange.email} value={loginForm.values.email} />
-            <span style={{color:'red',fontSize:14,marginLeft:10}} >{loginForm.touched.password&&loginForm.error.password}</span>
+            <input type="email" className='myinput'placeholder='email'name='email' onChange={loginForm.handleChange} value={loginForm.values.email} />
+            <span style={{color:'red',fontSize:14,marginLeft:10}} >{loginForm.touched.password&&loginForm.errors.password}</span>
             <label htmlFor="password"></label>
-            <input type="password" className='myinput' name='password' placeholder='password'onChange={loginForm.handleChange.password} value={loginForm.values.password} />
+            <input type="password" className='myinput' name='password' placeholder='password'onChange={loginForm.handleChange} value={loginForm.values.password} />
             <div className='text-center'>
 
             <button className='lobt' onChange={loginForm.handleChange}>Login{alert.type}</button>:{alert.msg}

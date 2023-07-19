@@ -25,7 +25,7 @@ export const Signup = () => {
     <div>
          <body className='d-flex justify-content-center align-items-center vh-100 w-100'>
           <div className="signup">
-            <form onsubmit={signupForm.handleChange}>
+            <form onsubmit={signupForm.handleSubmit}>
 
 
           <h3>Signup</h3>

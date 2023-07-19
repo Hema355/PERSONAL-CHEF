@@ -7,6 +7,7 @@ import Navbar from './components/Navbar';
 import Setting from './components/Setting';
 import Notification from './components/Notification';
 import Signup from './components/Signup';
+import AddRecipe from './components/AddRecipe';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <BrowserRouter>
         <Navbar/>
         <Routes>
+          <Route  element={<AddRecipe/>} path='AddRecipe'/>
           <Route  element={<Login/>} path='Login'/>
           <Route  element={<Signup/>} path='Signup'/>
           <Route  element={<Setting/>} path='Setting'/>
