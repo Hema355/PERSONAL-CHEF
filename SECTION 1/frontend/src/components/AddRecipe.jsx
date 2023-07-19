@@ -1,16 +1,20 @@
 import { useFormik } from 'formik'
-import React from 'react'
+import React, { useState } from 'react'
 import*as Yup from'yup'
 const recipeSchema=Yup.object().shape({
 
 })
 
 const AddRecipe = () => {
+
+  const [currentUser, setCurrentUser] = useState(JSON.parse(sessionStorage.getItem('user')));
+
   const recipeFom=useFormik({
     initialValues:{
       title:'',
       type:'',
       image:'',
+      user: currentUser._id,
       category:'',
       discription:''
     },

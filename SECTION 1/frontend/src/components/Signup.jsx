@@ -1,10 +1,19 @@
 import { useFormik } from 'formik'
 import React from 'react'
 import * as Yup from 'yup';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
+
+
 const signupSchema=Yup.object().shape({
 
 })
+
+
 export const Signup = () => {
+
+  const navigate = useNavigate();
+
   const signupForm=useFormik({
     initialValues:({
       name:'',
@@ -16,8 +25,24 @@ export const Signup = () => {
       code:'',
       
     }),
-    onsubmit:(values)=>{
-      console.log(values);
+    onsubmit:async (values)=>{
+      const res = await fetch('http://localhost:5000/user/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values)
+      });
+
+      console.log(res.status);
+
+      if(res.status === 200){
+        Swal.fire({
+          icon : 'success',
+          title : 'User Registered Successfully',
+          text : 'Please Login to Continue'
+        });
+        navigate('/login');
+      }
+
     },
     validationSchema:signupSchema
   })
@@ -31,7 +56,7 @@ export const Signup = () => {
           <h3>Signup</h3>
           <span style={{color:'red',fontSize:14, marginLeft:14}}>{signupForm.touched.name&&signupForm.errors.name}</span>
           <label htmlFor="name">Name</label>
-          <input type="text"className='myinput2' name='name'onChange={signupForm.handleChange.name} value={signupForm.values.name} />
+          <input type="text"className='myinput2' name='name' onChange={signupForm.handleChange} value={signupForm.values.name} />
           <span style={{color:'red',fontSize:14, marginLeft:14}}>{signupForm.touched.email&&signupForm.errors.email}</span>
           <label htmlFor="email">Email</label>
           <input type="email" className='myinput2'name='email'onChange={signupForm.handleChange.email} value={signupForm.values.email} />
