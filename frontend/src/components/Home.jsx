@@ -5,11 +5,18 @@ import { Link } from "react-router-dom";
 const Home = () => {
   const [recipeList, setRecipeList] = useState([]);
 
+  const [vegRecipies, setVegRecipies] = useState([]);
+  const [nonVeg, setNonVeg] = useState([]);
+  const [fastFood, setFastFood] = useState([]);
+
   const fetchRecipeData = async () => {
     const res = await fetch("http://localhost:5000/recipe/getall");
     const data = await res.json();
     console.log(data);
     setRecipeList(data);
+    setFastFood(data.filter((recipe) => recipe.type === "fast-food"));
+    setVegRecipies(data.filter((recipe) => recipe.type === "veg"));
+    setNonVeg(data.filter((recipe) => recipe.type === "non-veg"));
   };
 
   useEffect(() => {
@@ -20,12 +27,70 @@ const Home = () => {
     return recipeList.map((recipe) => (
       <div className="col-md-2">
         <div className="card">
-          <img src={"http://localhost:5000/"+recipe.image} alt="" className="card-img-top" />
+          <img
+            src={"http://localhost:5000/" + recipe.image}
+            alt=""
+            className="card-img-top"
+          />
           <div className="card-body">
             <h5 className="card-title">{recipe.title}</h5>
-            <Link className="btn btn-primary" to={'/details/'+recipe._id}>View Recipe</Link>
+            <Link className="btn btn-primary" to={"/details/" + recipe._id}>
+              View Recipe
+            </Link>
           </div>
         </div>
+      </div>
+    ));
+  };
+
+  const displayVeg = () => {
+    if (vegRecipies.length === 0)
+      return <h1 className="text-center display-4">No Veg Recipies Found</h1>;
+    return vegRecipies.map((recipe) => (
+      <div>
+        <img
+          src={"http://localhost:5000/" + recipe.image}
+          className="myimage"
+          alt=""
+        />
+        <h4>{recipe.title}</h4>
+        <Link to={"/details/" + recipe._id}>View full Recipe</Link>
+      </div>
+    ));
+  };
+
+  const displayNonVeg = () => {
+    if (nonVeg.length === 0)
+      return (
+        <h1 className="text-center display-4">No Non-Veg Recipies Found</h1>
+      );
+    return nonVeg.map((recipe) => (
+      <div>
+        <img
+          src={"http://localhost:5000/" + recipe.image}
+          className="myimage"
+          alt=""
+        />
+        <h4>{recipe.title}</h4>
+        <Link to={"/details/" + recipe._id}>View full Recipe</Link>
+      </div>
+    ));
+  };
+
+  const displayFastFood = () => {
+    if (fastFood.length === 0)
+      return (
+        <h1 className="text-center display-4">No Fast Food Recipies Found</h1>
+      );
+    return fastFood.map((recipe) => (
+      <div>
+        <img
+          src={"http://localhost:5000/" + recipe.image}
+          className="myimage"
+          alt=""
+        />
+        <h4>{recipe.title}</h4>
+        <Link to={"/details/" + recipe._id}>View full Recipe</Link>
       </div>
     ));
   };
@@ -36,17 +101,10 @@ const Home = () => {
       <h1 className="display-2 fw-bold text-center text-black mt-3 p-3">
         Veg Recipie
       </h1>
-      <div className="row">{displayRecipies()}</div>
-
-      <div className="box text-center">
-        <div>
-          <img
-            src="https://assets.bonappetit.com/photos/5f3442e2639eabe5280faa7a/1:1/w_2560%2Cc_limit/HLY-FMC-Sabzi-16x9.jpg"
-            className="myimage "
-            alt=""
-          />
-          <h4>Bhindi Ki Sabji</h4>
-        </div>
+      {/* <div className="row">{displayRecipies()}</div> */}
+      {<div className="box text-center">{displayVeg()}</div>}
+      {/* <div className="box text-center">
+       
         <div>
           <img
             src="https://www.archanaskitchen.com/images/archanaskitchen/Indian_Vegetables_Gravy/Lauki_Aloo_Sabzi_Bottlegourd_Potato_Curry_Vegetable_Recipe-1.jpg"
@@ -103,9 +161,14 @@ const Home = () => {
           />
           <h4>Rajma</h4>
         </div>
-      </div>
+      </div> */}
+      <h1 className="display-3 fw-bold text-center">Non Veg Recipie</h1>
+      {<div className="box text-center">{displayNonVeg()}</div>}
+
       <h1 className="display-3 fw-bold text-center">Fast Food Recipie</h1>
-      <div className="box2 text-center">
+      {<div className="box text-center">{displayFastFood()}</div>}
+
+      {/* <div className="box2 text-center">
         <div>
           <img
             src="https://www.jocooks.com/wp-content/uploads/2019/03/chow-mein-1-1.jpg"
@@ -170,7 +233,7 @@ const Home = () => {
           />
           <h4>Frankie Roll</h4>
         </div>
-      </div>
+      </div> */}
       <footer className="footer">
         <div className="container">
           <div className="row">
