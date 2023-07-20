@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [recipeList, setRecipeList] = useState([]);
@@ -8,6 +8,14 @@ const Home = () => {
   const [vegRecipies, setVegRecipies] = useState([]);
   const [nonVeg, setNonVeg] = useState([]);
   const [fastFood, setFastFood] = useState([]);
+
+  const navigate = useNavigate();
+  const searchText = useRef(null);
+
+  const searchRecipe = (e) => {
+    navigate('/browse/'+searchText.current.value);
+  }
+
 
   const fetchRecipeData = async () => {
     const res = await fetch("http://localhost:5000/recipe/getall");
@@ -97,7 +105,12 @@ const Home = () => {
 
   return (
     <div>
-      <header className="header1"></header>
+      <header className="header1">
+      <div>
+            <input ref={searchText} type="text" name="" className="form-control" placeholder='search recipe here' />
+          </div>
+          <button className='btn btn-primary mt-3' onClick={searchRecipe}>Search</button>
+      </header>
       <h1 className="display-2 fw-bold text-center text-black mt-3 p-3">
         Veg Recipie
       </h1>
