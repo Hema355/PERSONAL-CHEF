@@ -9,6 +9,7 @@ import Notification from './components/Notification';
 import Signup from './components/Signup';
 import AddRecipe from './components/AddRecipe';
 import RecipeDetails from './components/RecipeDetails';
+import BrowseRecipe from './components/BrowseRecipe';
 
 function App() {
   return (
@@ -24,6 +25,8 @@ function App() {
           <Route  element={<Signup/>} path='Signup'/>
           <Route  element={<Setting/>} path='Setting'/>
           <Route  element={<Notification/>} path='Notification'/>
+          <Route  element={<BrowseRecipe/>} path='browse'/>
+          <Route  element={<BrowseRecipe/>} path='browse/:recipe'/>
           
         </Routes>
         

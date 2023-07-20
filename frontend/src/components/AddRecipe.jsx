@@ -12,16 +12,19 @@ const AddRecipe = () => {
   const nameRef = useRef(null);
   const qtyRef = useRef(null);
 
-  const [selFile, setSelFile] = useState('');
+  const [selFile, setSelFile] = useState("");
 
   const [ingredients, setIngredients] = useState([]);
 
   const addIngredients = () => {
-    setIngredients([...ingredients, {
-      name: nameRef.current.value,
-      quantity: qtyRef.current.value,
-    }]);
-  }
+    setIngredients([
+      ...ingredients,
+      {
+        name: nameRef.current.value,
+        quantity: qtyRef.current.value,
+      },
+    ]);
+  };
 
   const recipeFom = useFormik({
     initialValues: {
@@ -32,7 +35,7 @@ const AddRecipe = () => {
       category: "",
       discription: "",
     },
-    onSubmit: async (values, {resetForm}) => {
+    onSubmit: async (values, { resetForm }) => {
       values.ingredients = ingredients;
       values.image = selFile;
       console.log(values);
@@ -47,7 +50,7 @@ const AddRecipe = () => {
       if (res.status === 200) {
         Swal.fire({
           icon: "success",
-          title: "Recipe Added Successfully"
+          title: "Recipe Added Successfully",
         });
         // resetForm();
       }
@@ -92,13 +95,18 @@ const AddRecipe = () => {
                 {recipeFom.touched.type && recipeFom.errors.type}
               </span>
               <label htmlFor="type">Type</label>
-              <input
-                type="type"
+              <select
                 name="type"
                 className="form-control"
                 onChange={recipeFom.handleChange}
                 value={recipeFom.values.type}
-              />
+              >
+                <option value="">Select Type</option>
+                <option value="veg">Veg</option>
+                <option value="non-veg">Non-Veg</option>
+                <option value="fast-food">Fast Food</option>
+              </select>
+
               <span style={{ color: "red", fontSize: 14 }}>
                 {recipeFom.touched.category && recipeFom.errors.category}
               </span>
@@ -114,11 +122,7 @@ const AddRecipe = () => {
                 {recipeFom.touched.image && recipeFom.errors.image}
               </span>
               <label htmlFor="file">image</label>
-              <input
-                type="file"
-                className="file"
-                onChange={uploadFile}
-              />
+              <input type="file" className="file" onChange={uploadFile} />
               <span style={{ color: "red", fontSize: 14 }}>
                 {recipeFom.touched.discription && recipeFom.errors.discription}
               </span>
@@ -133,22 +137,36 @@ const AddRecipe = () => {
               <label htmlFor="">Add Ingredients</label>
               <div className="">
                 <div className="d-flex">
-                  <input className="form-control" type="text" ref={nameRef} placeholder="Ingredient Name" />
-                  <input className="form-control" type="text" ref={qtyRef} placeholder="Quantity" />
-                  <button type="button" onClick={addIngredients} className="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                  <input
+                    className="form-control"
+                    type="text"
+                    ref={nameRef}
+                    placeholder="Ingredient Name"
+                  />
+                  <input
+                    className="form-control"
+                    type="text"
+                    ref={qtyRef}
+                    placeholder="Quantity"
+                  />
+                  <button
+                    type="button"
+                    onClick={addIngredients}
+                    className="btn btn-primary"
+                  >
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                  </button>
                 </div>
               </div>
 
               <label htmlFor="">Added Ingredients</label>
               <ul className="list-group">
-              {
-                ingredients.map((ingredient) => (
+                {ingredients.map((ingredient) => (
                   <li className="list-group-item">
                     <h3>{ingredient.name}</h3>
                     <p>{ingredient.quantity}</p>
                   </li>
-                ))
-              }
+                ))}
               </ul>
 
               <div className="text-center">
