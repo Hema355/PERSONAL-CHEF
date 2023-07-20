@@ -12,7 +12,7 @@ const BrowseRecipe = () => {
     const data = await res.json();
     console.log(data);
     if(recipe){
-        const filteredData = data.filter(recipe => recipe.title.toLowerCase().includes(recipe.toLowerCase()));
+        const filteredData = data.filter(obj => obj.title.toLowerCase().includes(recipe.toLowerCase()));
         setRecipeList(filteredData);
     }else{
         setRecipeList(data);
